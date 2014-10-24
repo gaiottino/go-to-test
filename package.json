@@ -1,0 +1,17 @@
+{
+  "name": "go-to-test",
+  "main": "./lib/go-to-test",
+  "version": "1.0.0",
+  "description": "A short description of your package",
+  "activationEvents": ["go-to-test:toggle"],
+  "repository": "https://github.com/iconara/go-to-test",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "temp": "~0.8.1"
+  }
+}
