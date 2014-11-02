@@ -13,7 +13,7 @@ describe 'go-to-test', ->
   editorView = null
   tmp_dir = null
 
-  set_up_project = ->
+  set_up_ruby_project = ->
     fs.mkdirSync(tmp_dir + '/lib')
     fs.mkdirSync(tmp_dir + '/lib/foo')
     fs.mkdirSync(tmp_dir + '/spec')
@@ -21,6 +21,15 @@ describe 'go-to-test', ->
     fs.writeFileSync(tmp_dir + '/lib/file_one.rb', '')
     fs.writeFileSync(tmp_dir + '/lib/foo/file_two.rb', '')
     fs.writeFileSync(tmp_dir + '/spec/foo/file_two_spec.rb', '')
+
+  set_up_coffee_script_project = ->
+    fs.mkdirSync(tmp_dir + '/lib')
+    fs.mkdirSync(tmp_dir + '/lib/foo')
+    fs.mkdirSync(tmp_dir + '/spec')
+    fs.mkdirSync(tmp_dir + '/spec/foo')
+    fs.writeFileSync(tmp_dir + '/lib/file_one.rb', '')
+    fs.writeFileSync(tmp_dir + '/lib/foo/file-two.coffee', '')
+    fs.writeFileSync(tmp_dir + '/spec/foo/file-two-spec.coffee', '')
 
   trigger_toggle = ->
     atom.workspaceView.getActiveView().trigger 'go-to-test:toggle'
@@ -57,23 +66,47 @@ describe 'go-to-test', ->
       activationPromise = atom.packages.activatePackage('go-to-test')
 
   describe 'when the go-to-test:toggle event is triggered', ->
-    beforeEach ->
-      set_up_project()
-
-    describe 'when a non-test file is active', ->
+    describe 'in a Ruby project', ->
       beforeEach ->
-        waitsForPromise ->
-          atom.workspace.open(tmp_dir + '/lib/foo/file_two.rb')
+        set_up_ruby_project()
 
-      it 'opens the test file', ->
-        trigger_and_wait_for_change (new_path) ->
-          expect(new_path).toEqual(tmp_dir + '/spec/foo/file_two_spec.rb')
+      describe 'when a non-test file is active', ->
+        beforeEach ->
+          waitsForPromise ->
+            atom.workspace.open(tmp_dir + '/lib/foo/file_two.rb')
 
-    describe 'when a test file is active', ->
+        it 'opens the test file', ->
+          trigger_and_wait_for_change (new_path) ->
+            expect(new_path).toEqual(tmp_dir + '/spec/foo/file_two_spec.rb')
+
+      describe 'when a test file is active', ->
+        beforeEach ->
+          waitsForPromise ->
+            atom.workspace.open(tmp_dir + '/spec/foo/file_two_spec.rb')
+
+        it 'opens the non-test file', ->
+          trigger_and_wait_for_change (new_path) ->
+            expect(new_path).toEqual(tmp_dir + '/lib/foo/file_two.rb')
+
+    describe 'in a Coffee Script project', ->
       beforeEach ->
-        waitsForPromise ->
-          atom.workspace.open(tmp_dir + '/spec/foo/file_two_spec.rb')
+        set_up_coffee_script_project()
 
-      it 'opens the non-test file', ->
-        trigger_and_wait_for_change (new_path) ->
-          expect(new_path).toEqual(tmp_dir + '/lib/foo/file_two.rb')
+      describe 'when a non-test file is active', ->
+        beforeEach ->
+          waitsForPromise ->
+            atom.workspace.open(tmp_dir + '/lib/foo/file-two.coffee')
+
+        it 'opens the test file', ->
+          trigger_and_wait_for_change (new_path) ->
+            expect(new_path).toEqual(tmp_dir + '/spec/foo/file-two-spec.coffee')
+
+      describe 'when a test file is active', ->
+        beforeEach ->
+          waitsForPromise ->
+            atom.workspace.open(tmp_dir + '/spec/foo/file-two-spec.coffee')
+
+        it 'opens the non-test file', ->
+          trigger_and_wait_for_change (new_path) ->
+            expect(new_path).toEqual(tmp_dir + '/lib/foo/file-two.coffee')
+
