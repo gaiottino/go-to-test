@@ -9,8 +9,6 @@ temp.track()
 
 describe 'go-to-test', ->
   activationPromise = null
-  editor = null
-  editorView = null
   tmp_dir = null
 
   set_up_ruby_project = ->
