@@ -91,7 +91,7 @@ describe 'go-to-test', ->
 
       it_moves_from_implementation_to_test_and_back_again '/lib/foo/file_two.rb', '/spec/foo/file_two_spec.rb'
 
-    describe 'in a Coffee Script project', ->
+    describe 'in a CoffeeScript project', ->
       beforeEach ->
         set_up_coffee_script_project()
 
