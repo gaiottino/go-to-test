@@ -10,7 +10,8 @@ find_test_file = (active_path) ->
       if file_name.indexOf(file_name_prefix) == 0 && file_name.indexOf(file_name_suffix) == file_name.length - file_name_suffix.length
         middle = file_name.substring(file_name_prefix.length, file_name.length - file_name_suffix.length - 1)
         return middle == '_spec' || middle == '-spec'
-    return path.join(project_root, test_dir, matches[0])
+    if matches.length > 0
+      return path.join(project_root, test_dir, matches[0])
 
 find_implementation_file = (active_path) ->
   implementation_dir = path.dirname(active_path.replace(/^spec/, 'lib'))
