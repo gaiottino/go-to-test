@@ -8,7 +8,6 @@ require '../lib/go-to-test'
 temp.track()
 
 describe 'go-to-test', ->
-  activationPromise = null
   tmp_dir = null
 
   set_up_ruby_project = ->
@@ -34,9 +33,6 @@ describe 'go-to-test', ->
 
   trigger_and_wait_for_change = (block) ->
     new_path = null
-
-    waitsForPromise ->
-      activationPromise
 
     atom.workspace.onDidOpen (e) ->
       new_path = e.uri.replace(/^\/private/, '')
@@ -80,7 +76,7 @@ describe 'go-to-test', ->
 
     runs ->
       atom.project.setPaths([tmp_dir])
-      activationPromise = atom.packages.activatePackage('go-to-test')
+      atom.packages.activatePackage('go-to-test')
 
   describe 'when the go-to-test:toggle event is triggered', ->
     describe 'in a Ruby project', ->
