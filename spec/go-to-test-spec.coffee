@@ -29,7 +29,8 @@ describe 'go-to-test', ->
     fs.writeFileSync(tmp_dir + '/spec/foo/file-two-spec.coffee', '')
 
   trigger_toggle = ->
-    atom.workspaceView.getActiveView().trigger 'go-to-test:toggle'
+    editor = atom.workspace.getActiveTextEditor()
+    atom.commands.dispatch(atom.views.getView(editor), 'go-to-test:toggle')
 
   trigger_and_wait_for_change = (block) ->
     new_path = null

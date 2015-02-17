@@ -23,7 +23,8 @@ find_implementation_file = (active_path) ->
 
 module.exports =
   activate: (state) ->
-    atom.workspaceView.command 'go-to-test:toggle', '.editor', @toggle
+    atom.commands.add 'atom-text-editor',
+      'go-to-test:toggle': (e) => @toggle(e)
 
   toggle: (e) ->
     editor = atom.workspace.getActiveTextEditor()
