@@ -2,8 +2,8 @@ fs = require 'fs'
 path = require 'path'
 
 PATTERNS = [
-  [/^lib\/(.*\/)([^\/]+)\.(\w+)$/, ['spec/$1$2_spec.$3', 'spec/$1$2-spec.$3', 'test/$1$2.$3', 'tests/$1$2.$3']],
-  [/^(?:spec|tests?)\/(.*\/)([^\/]+?)(?:_spec|-spec|)\.(\w+)$/, ['lib/$1$2.$3']]
+  [/^(?:lib|app)\/(.*\/)([^\/]+)\.(\w+)$/, ['spec/$1$2_spec.$3', 'spec/$1$2-spec.$3', 'test/$1$2.$3', 'tests/$1$2.$3']],
+  [/^(?:spec|tests?)\/(.*\/)([^\/]+?)(?:_spec|-spec|)\.(\w+)$/, ['lib/$1$2.$3', 'app/$1$2.$3']]
 ]
 
 module.exports =

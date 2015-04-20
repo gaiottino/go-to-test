@@ -13,11 +13,16 @@ describe 'go-to-test', ->
   set_up_ruby_project = ->
     fs.mkdirSync(tmp_dir + '/lib')
     fs.mkdirSync(tmp_dir + '/lib/foo')
+    fs.mkdirSync(tmp_dir + '/app')
+    fs.mkdirSync(tmp_dir + '/app/models')
     fs.mkdirSync(tmp_dir + '/spec')
     fs.mkdirSync(tmp_dir + '/spec/foo')
+    fs.mkdirSync(tmp_dir + '/spec/models')
     fs.writeFileSync(tmp_dir + '/lib/file_one.rb', '')
     fs.writeFileSync(tmp_dir + '/lib/foo/file_two.rb', '')
+    fs.writeFileSync(tmp_dir + '/app/models/user.rb', '')
     fs.writeFileSync(tmp_dir + '/spec/foo/file_two_spec.rb', '')
+    fs.writeFileSync(tmp_dir + '/spec/models/user_spec.rb', '')
 
   set_up_coffee_script_project = ->
     fs.mkdirSync(tmp_dir + '/lib')
@@ -85,6 +90,7 @@ describe 'go-to-test', ->
         set_up_ruby_project()
 
       it_moves_from_implementation_to_test_and_back_again '/lib/foo/file_two.rb', '/spec/foo/file_two_spec.rb'
+      it_moves_from_implementation_to_test_and_back_again '/app/models/user.rb', '/spec/models/user_spec.rb'
 
     describe 'in a CoffeeScript project', ->
       beforeEach ->
