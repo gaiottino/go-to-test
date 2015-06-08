@@ -3,7 +3,9 @@
   "main": "./lib/go-to-test",
   "version": "1.0.0",
   "description": "A short description of your package",
-  "activationEvents": ["go-to-test:toggle"],
+  "activationCommands": {
+    "atom-text-editor": ["go-to-test:toggle"]
+  },
   "repository": "https://github.com/iconara/go-to-test",
   "license": "MIT",
   "engines": {

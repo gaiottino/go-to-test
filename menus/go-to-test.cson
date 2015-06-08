@@ -1,16 +1,2 @@
-# See https://atom.io/docs/latest/creating-a-package#menus for more details
 'context-menu':
-  '.overlayer':
-      'Go to test': 'go-to-test:toggle'
-
-'menu': [
-  {
-    'label': 'Packages'
-    'submenu': [
-      'label': 'Go to test'
-      'submenu': [
-        { 'label': 'Go to test', 'command': 'go-to-test:toggle' }
-      ]
-    ]
-  }
-]
+  'atom-workspace': [{label: 'Go to test', command: 'go-to-test:toggle'}]
